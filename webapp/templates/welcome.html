@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Úvod | FinApp{% endblock %}
+
+{% block content %}
+  <div class="card p-4 text-light text-center">
+    <h2>👋 Vítejte v aplikaci FinApp!</h2>
+    <p class="mt-3">
+      Jsme rádi, že jste tady. Tato aplikace vám pomůže nahrávat vaše účetní soubory a
+      sledovat přehledné statistiky o vašem podnikání.
+    </p>
+    <div class="mt-4">
+      <a href="{% url 'upload' %}" class="btn btn-custom me-2">📂 Nahrát soubory</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-custom">📊 Zobrazit statistiky</a>
+    </div>
+  </div>
+{% endblock %}

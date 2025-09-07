@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Tabulka - {{ uploaded.file_type|title }}{% endblock %}
+
+{% block content %}
+<div class="card p-4 text-light">
+  <h3 class="mb-3">Data z tabulky – {{ uploaded.get_file_type_display }}</h3>
+  <p><strong>Soubor:</strong> {{ uploaded.original_file.name }}</p>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          {% for col in headers %}
+            <th scope="col" class="text-center">{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in table_data %}
+          <tr>
+            {% for cell in row %}
+              {% if forloop.counter0 == 0 %}
+                <td class="text-end">{{ cell }}</td>  {# první sloupec doprava #}
+              {% elif forloop.counter0 == 1 %}
+                <td class="text-start">{{ cell }}</td> {# druhý sloupec doleva #}
+              {% else %}
+                <td class="text-end">{{ cell }}</td>  {# ostatní doprava #}
+              {% endif %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  table.table th, 
+  table.table td {
+    vertical-align: middle;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+  table.table th {
+    background-color: #1e293b !important;
+    color: #f1f1f1 !important;
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Moji klienti{% endblock %}
+
+{% block content %}
+<div class="text-light">
+  <h2 class="mb-4 text-center">👨‍🏫 Moji klienti</h2>
+
+  {% if clients %}
+    <!-- Dropdown pro rychlé přepínání klientů -->
+    <div class="dropdown mb-4 text-center">
+      <button class="btn btn-custom dropdown-toggle" type="button" id="clientDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Vyberte klienta
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="clientDropdown">
+        {% for client in clients %}
+          <li>
+            <a class="dropdown-item" href="{% url 'coach_dashboard_client' client.id %}">
+              {{ client.username }} ({{ client.email }})
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Alternativně seznam jako tlačítka -->
+    <div class="list-group">
+      {% for client in clients %}
+        <a href="{% url 'coach_dashboard_client' client.id %}" class="list-group-item list-group-item-action">
+          {{ client.username }} ({{ client.email }})
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">❌ Nemáte přiřazené žádné klienty.</p>
+  {% endif %}
+</div>
+{% endblock %}

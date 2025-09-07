@@ -1,0 +1,58 @@
+"Označení
+a","AKTIVA
+b","Číslo
+řádku
+c",Běžné účetní období,,,Minulé úč. období
+,,,"Brutto
+1","Korekce
+2","Netto
+3","Netto
+4"
+,AKTIVA CELKEM (A. + B. + C. + D.),01,9 390,663,8 727,1 707
+B.,Stálá aktiva (B.I. + B.II. + B.III.),03,1 729,663,1 066,0
+B.II.,Dlouhodobý hmotný majetek (součet B.II.1. až B.II.5.2.),14,1 729,663,1 066,0
+2.,Hmotné movité věci a jejich soubory,18,1 729,663,1 066,0
+C.,Oběžná aktiva (C.I. + C.II. + C.III. + C.IV.),37,7 642,0,7 642,1 707
+C.I.,Zásoby (součet C. I.1. až C.I.5.),38,137,0,137,0
+3.,Výrobky a zboží,41,137,0,137,0
+3.2.,Zboží,43,137,0,137,0
+C.II.,Pohledávky (C.II.1 + C.II.2 + C.II.3),46,1 233,0,1 233,103
+2.,Krátkodobé pohledávky,57,1 233,0,1 233,103
+2.1.,Pohledávky z obchodních vztahů,58,1 202,0,1 202,93
+2.4.,Pohledávky - ostatní,61,31,0,31,10
+4.4.,Krátkodobé poskytnuté zálohy,65,46,0,46,17
+4.6.,Jiné pohledávky,67,-15,0,-15,-7
+C.IV.,Peněžní prostředky (C.IV.1. + C.IV.2.),75,6 272,0,6 272,1 604
+1.,Peněžní prostředky v pokladně,76,81,0,81,0
+2.,Peněžní prostředky na účtech,77,6 191,0,6 191,1 604
+D.,Časové rozlišení aktiv (D.1. + D.2.+ D.3.),78,19,0,19,0
+1.,Náklady příštích období,79,19,0,19,0
+"Označení
+a","PASIVA
+b","Číslo
+řádku
+c",Stav v běžném účet. období,Stav v minulé účetním období,,
+,,,5,6,,
+,PASIVA CELKEM (A. + B. + C. + D.),01,8 727,1 707,,
+A.,Vlastní kapitál (A.I. + A.II. + A.III. + A.IV. + A.V. + A.VI.),02,3 657,561,,
+A.I.,Základní kapitál (A.I.1. + A.I.2. + A.I.3.),03,150,0,,
+1.,Základní kapitál,04,150,0,,
+A.IV.,Výsledek hospodaření minulých let (+/-) (A.IV.1. + A.IV.2.),18,1 081,154,,
+1.,Nerozdělený zisk nebo neuhrazená ztráta minulých let (+/-),19,1 416,154,,
+2.,Jiný výsledek hospodaření minulých let (+/-),20,-335,0,,
+A.V.,Výsledek hospodaření běžného účetního období (+/-),21,2 426,407,,
+B + C.,Cizí zdroje (součet B. + C.),23,3 995,1 146,,
+C.,Závazky (součet C.I. + C.II. + C.III.),29,3 995,1 146,,
+C.I.,Dlouhodobé závazky (součet C. I.1. až C.I.9.),30,862,0,,
+2.,Závazky k úvěrovým institucím,34,862,0,,
+C.II.,Krátkodobé závazky (součet C. II.1. až C.II.8.),45,3 133,1 146,,
+3.,Krátkodobé přijaté zálohy,50,93,42,,
+4.,Závazky z obchodních vztahů,51,1 165,142,,
+8.,Závazky ostatní,55,1 875,962,,
+8.1.,Závazky ke společníkům,56,745,744,,
+8.3.,Závazky k zaměstnancům,58,6,18,,
+8.5.,Stát – daňové závazky a dotace,60,1 030,200,,
+8.7.,Jiné závazky,62,94,0,,
+D.,Časové rozlišení pasiv (D.1. + D.2.),66,1 075,0,,
+1.,Výdaje příštích období,67,169,0,,
+2.,Výnosy příštích období,68,906,0,,

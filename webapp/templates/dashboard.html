@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | FinApp{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  {% if readonly %}
+    <h2 class="text-center mb-4">📊 Dashboard klienta: {{ user_to_show.username }}</h2>
+
+    <!-- Dropdown přepínání klientů -->
+    {% if coach_clients %}
+    <div class="d-flex justify-content-center mb-4">
+      <div class="dropdown me-3">
+        <button class="btn btn-scaleup dropdown-toggle" type="button" id="clientDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Přepnout klienta
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="clientDropdown">
+          {% for client in coach_clients %}
+            <li>
+              <a class="dropdown-item" href="{% url 'coach_dashboard_client' client.id %}">
+                {{ client.username }} ({{ client.email }})
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+  {% else %}
+    <h2 class="text-center mb-4">📊 Můj dashboard</h2>
+    <p class="text-center text-muted">Nahrávejte své PDF soubory a sledujte statistiky v reálném čase.</p>
+  {% endif %}
+
+  <!-- Dropdown pro výběr roku -->
+  <form method="get" class="text-center mb-5">
+    <label for="year" class="me-2">📅 Rok:</label>
+    <select name="year" id="year" class="form-select d-inline w-auto" onchange="this.form.submit()">
+      {% for y in years %}
+        <option value="{{ y }}" {% if y == selected_year %}selected{% endif %}>{{ y }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <!-- Flash zprávy -->
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zavřít"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Statistiky -->
+  <div class="row text-center mb-5">
+    <div class="col-md-4 mb-3">
+      <div class="card-scaleup">
+        <h5>💰 Aktiva</h5>
+        <h2 class="fw-bold">{{ summary.rozvaha.aktiva }}</h2>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card-scaleup">
+        <h5>📉 Pasiva</h5>
+        <h2 class="fw-bold">{{ summary.rozvaha.pasiva }}</h2>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card-scaleup">
+        <h5>⚖️ Zisk</h5>
+        <h2 class="fw-bold">{{ summary.vykaz.zisk }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabulka souborů -->
+  <div class="card-scaleup mb-4">
+    <h4 class="mb-3">📂 Nahrané soubory</h4>
+    <div class="table-responsive">
+      <table class="table table-scaleup align-middle">
+        <thead>
+          <tr>
+            <th>Soubor</th>
+            <th>Typ</th>
+            <th>Rok</th>
+            <th>Nahrán</th>
+            <th>Akce</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in files %}
+          <tr>
+            <td>{{ f.original_file.name }}</td>
+            <td>{{ f.get_file_type_display }}</td>
+            <td>{{ f.year }}</td>
+            <td>{{ f.uploaded_at|date:"d.m.Y H:i" }}</td>
+            <td>
+              {% if f.csv_file %}
+                <a href="{% url 'view_table' f.id %}" class="btn btn-sm btn-scaleup me-2">👀 Data</a>
+              {% else %}
+                <span class="text-muted">CSV není k dispozici</span>
+              {% endif %}
+
+              {% if not readonly %}
+              <form action="{% url 'delete_file' f.id %}" method="post" style="display:inline;"
+                    onsubmit="return confirm('Opravdu chcete smazat tento soubor?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center text-muted">❌ Žádné soubory.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% if not readonly %}
+  <div class="text-center">
+    <a href="{% url 'upload' %}" class="btn btn-lg btn-scaleup">📂 Nahrát nové soubory</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

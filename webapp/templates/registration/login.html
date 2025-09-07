@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Přihlášení | FinApp{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+  <div class="card p-4 text-light" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-3">🔑 Přihlášení</h3>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <!-- Uživatelské jméno -->
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Uživatelské jméno</label>
+        <input type="text" name="username" id="id_username"
+               class="form-control"
+               placeholder="Zadejte uživatelské jméno"
+               required>
+      </div>
+
+      <!-- Heslo -->
+      <div class="mb-3">
+        <label for="id_password" class="form-label">Heslo</label>
+        <input type="password" name="password" id="id_password"
+               class="form-control"
+               placeholder="Zadejte heslo"
+               required>
+      </div>
+
+      <button type="submit" class="btn btn-custom w-100">Přihlásit se</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

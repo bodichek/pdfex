@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Nahrát soubory | FinApp{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-light">
+  <h2 class="mb-4 text-center">📂 Nahrát soubory</h2>
+  <p class="text-center text-muted mb-5">
+    Vyberte rok a nahrajte své účetní soubory ve formátu PDF. Systém je uloží do databáze a převede na tabulková data.
+  </p>
+
+  <div class="row">
+    <!-- Rozvaha -->
+    <div class="col-md-6">
+      <div class="card-scaleup p-4 mb-4">
+        <h5 class="mb-3">📂 Nahrát Rozvahu (Balance Sheet)</h5>
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_rozvaha' %}" onsubmit="return validateRozvahaForm()">
+          {% csrf_token %}
+          <input id="rozvaha_file" class="form-control mb-3" type="file" name="file" accept="application/pdf" required>
+
+          <!-- Výběr roku -->
+          <label for="rozvaha_year" class="form-label">📅 Rok</label>
+          <select id="rozvaha_year" name="year" class="form-select mb-3" required>
+            {% for y in years %}
+              <option value="{{ y }}" {% if y == current_year %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" class="btn btn-scaleup w-100">Nahrát Rozvahu</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Výkaz zisku a ztráty -->
+    <div class="col-md-6">
+      <div class="card-scaleup p-4 mb-4">
+        <h5 class="mb-3">📂 Nahrát Výkaz (Profit & Loss)</h5>
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_vykaz' %}" onsubmit="return validateVykazForm()">
+          {% csrf_token %}
+          <input id="vykaz_file" class="form-control mb-3" type="file" name="file" accept="application/pdf" required>
+
+          <!-- Výběr roku -->
+          <label for="vykaz_year" class="form-label">📅 Rok</label>
+          <select id="vykaz_year" name="year" class="form-select mb-3" required>
+            {% for y in years %}
+              <option value="{{ y }}" {% if y == current_year %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" class="btn btn-scaleup w-100">Nahrát Výkaz</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Validace formulářů -->
+<script>
+function validatePDF(fileInputId) {
+  const fileInput = document.getElementById(fileInputId);
+  if (!fileInput.files.length) {
+    alert("❌ Prosím vyberte PDF soubor.");
+    return false;
+  }
+  const file = fileInput.files[0];
+  if (!file.name.toLowerCase().endsWith(".pdf")) {
+    alert("❌ Soubor musí být ve formátu PDF.");
+    return false;
+  }
+  return true;
+}
+
+function validateRozvahaForm() {
+  return validatePDF("rozvaha_file");
+}
+
+function validateVykazForm() {
+  return validatePDF("vykaz_file");
+}
+</script>
+{% endblock %}
