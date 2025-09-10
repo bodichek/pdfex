@@ -125,3 +125,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email configuration for admin notifications
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ADMINS = [('Admin', 'admin@example.com')]
+DEFAULT_FROM_EMAIL = 'noreply@example.com'
