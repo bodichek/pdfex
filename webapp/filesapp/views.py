@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.core.mail import mail_admins
 from django.contrib.auth.decorators import login_required
 from django.core.files import File
 from django.contrib.auth.models import User
@@ -160,6 +161,17 @@ def upload_rozvaha(request):
         if csv_path:
             with open(csv_path, 'rb') as f:
                 uploaded.csv_file.save(os.path.basename(csv_path), File(f), save=True)
+            messages.success(request, "Soubor byl úspěšně zpracován.")
+            mail_admins(
+                subject="Nový soubor nahrán",
+                message=f"Uživatel {request.user.username} nahrál rozvahu {pdf_file.name} pro rok {year}.",
+            )
+        else:
+            messages.error(request, "Zpracování souboru selhalo.")
+            mail_admins(
+                subject="Chyba při zpracování souboru",
+                message=f"Uživatel {request.user.username} nahrál rozvahu {pdf_file.name}, ale zpracování selhalo.",
+            )
 
         return redirect('dashboard')
 
@@ -203,6 +215,17 @@ def upload_vykaz(request):
         if csv_path:
             with open(csv_path, 'rb') as f:
                 uploaded.csv_file.save(os.path.basename(csv_path), File(f), save=True)
+            messages.success(request, "Soubor byl úspěšně zpracován.")
+            mail_admins(
+                subject="Nový soubor nahrán",
+                message=f"Uživatel {request.user.username} nahrál výkaz {pdf_file.name} pro rok {year}.",
+            )
+        else:
+            messages.error(request, "Zpracování souboru selhalo.")
+            mail_admins(
+                subject="Chyba při zpracování souboru",
+                message=f"Uživatel {request.user.username} nahrál výkaz {pdf_file.name}, ale zpracování selhalo.",
+            )
 
         return redirect('dashboard')
 
